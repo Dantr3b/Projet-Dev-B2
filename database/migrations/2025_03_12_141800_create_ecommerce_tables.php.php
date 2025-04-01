@@ -12,9 +12,8 @@ class CreateEcommerceTables extends Migration
             $table->id('user_id');
             $table->string('username', 50);
             $table->string('email', 100)->unique();
-            $table->string('password_hash', 255);
-            $table->string('updated_at')->default(now());
-            $table->dateTime('created_at')->default(now());
+            $table->string('password', 255);
+            $table->timestamps();
         });
 
         Schema::create('products', function (Blueprint $table) {
