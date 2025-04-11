@@ -65,4 +65,49 @@ npm install
 npm run dev
 ```
 
+---
 
+## Démarrage du projet
+1. Démarrez le serveur local avec la commande suivante :
+
+```bash
+php artisan serve
+```
+
+2. Ouvrez votre navigateur et accédez à l'URL suivante :
+
+```arduino
+http://localhost:8000
+```
+
+---
+
+
+##Accéder à la documentation Swagger UI
+
+La documentation interactive de l'API est accessible via Swagger UI :
+
+```bash
+http://localhost:8000/api/documentation
+```
+
+Routes principales
+- POST /api/register : Enregistrer un nouvel utilisateur
+
+- POST /api/login : Authentification des utilisateurs
+
+- POST /api/logout : Déconnexion de l'utilisateur
+
+- POST /api/confirm-password : Confirmer le mot de passe de l'utilisateur
+
+- POST /api/verification-notification : Envoi du lien de vérification par email
+
+---
+
+## Sécurité
+Cette API utilise Sanctum pour l'authentification basée sur les tokens. Les utilisateurs doivent inclure leur token Bearer dans les headers pour accéder aux routes protégées.
+
+---
+
+## License
+Distribué sous la licence MIT.
