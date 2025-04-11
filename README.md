@@ -6,11 +6,15 @@
 
 ### Fonctionnalités principales :
 
-- Inscription des utilisateurs
-- Authentification avec tokens
-- Confirmer le mot de passe
-- Vérification d'email
-- Déconnexion
+- Authentification & Utilisateurs : Inscription, connexion, déconnexion, vérification d'email, confirmation de mot de passe.
+
+- Gestion des Produits : Création, lecture, mise à jour, suppression de produits.
+
+- Sécurité : Accès sécurisé avec tokens (Sanctum).
+
+- Documentation API : Générée automatiquement avec Swagger UI.
+
+- Validation & Gestion des Erreurs : Validation des entrées et gestion des erreurs HTTP.
 
 ---
 
@@ -76,31 +80,20 @@ php artisan serve
 
 2. Ouvrez votre navigateur et accédez à l'URL suivante :
 
-```arduino
+```bash
 http://localhost:8000
 ```
 
 ---
 
 
-##Accéder à la documentation Swagger UI
+## Accéder à la documentation Swagger UI
 
 La documentation interactive de l'API est accessible via Swagger UI :
 
 ```bash
 http://localhost:8000/api/documentation
 ```
-
-Routes principales
-- POST /api/register : Enregistrer un nouvel utilisateur
-
-- POST /api/login : Authentification des utilisateurs
-
-- POST /api/logout : Déconnexion de l'utilisateur
-
-- POST /api/confirm-password : Confirmer le mot de passe de l'utilisateur
-
-- POST /api/verification-notification : Envoi du lien de vérification par email
 
 ---
 
