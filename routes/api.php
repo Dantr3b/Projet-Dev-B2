@@ -49,6 +49,9 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
 
+
+
+
 // Exemple de route protégée
 Route::middleware('auth:sanctum')->get('/profile', function (\Illuminate\Http\Request $request) {
     return response()->json($request->user());
