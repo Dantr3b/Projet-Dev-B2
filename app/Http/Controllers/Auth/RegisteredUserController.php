@@ -14,40 +14,26 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
-    {
-        return view('auth.register');
-    }
-
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:50'], // Utilisation correcte de 'username'
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:100', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'username' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
         ]);
-
 
         $user = User::create([
-            'username' => $request->username, // Correction : 'username' au lieu de 'name'
+            'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'created_at' => now(),
+            'password' => \Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return response()->json([
+            'message' => 'Utilisateur enregistré avec succès',
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ], 201);
     }
 }
-
