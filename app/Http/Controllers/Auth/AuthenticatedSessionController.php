@@ -10,24 +10,33 @@ class AuthenticatedSessionController extends Controller
 {
 
     /**
-     * @OA\Post(
-     *     path="/api/register",
-     *     summary="Enregistrer un nouvel utilisateur",
-     *     tags={"Authentification"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"username","email","password","password_confirmation"},
-     *             @OA\Property(property="username", type="string", example="JohnDoe"),
-     *             @OA\Property(property="email", type="string", example="test@email.com"),
-     *             @OA\Property(property="password", type="string", example="password123"),
-     *             @OA\Property(property="password_confirmation", type="string", example="password123")
-     *         )
-     *     ),
-     *     @OA\Response(response=201, description="Utilisateur enregistré avec succès"),
-     *     @OA\Response(response=422, description="Erreur de validation")
-     * )
-     */
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Connexion utilisateur",
+ *     tags={"Authentification"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email", "password"},
+ *             @OA\Property(property="email", type="string", example="test@example.com"),
+ *             @OA\Property(property="password", type="string", example="password123")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Connexion réussie",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Connexion réussie"),
+ *             @OA\Property(property="access_token", type="string", example="token123"),
+ *             @OA\Property(property="token_type", type="string", example="Bearer")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Identifiants invalides"
+ *     )
+ * )
+ */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $credentials = $request->validate([

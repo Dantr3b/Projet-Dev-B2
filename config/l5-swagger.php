@@ -44,7 +44,7 @@ return [
                  * Absolute paths to directory containing the swagger annotations are stored.
                  */
                 'annotations' => [
-                    base_path('app'),  // Assure-toi que ce chemin pointe vers le dossier Swagger
+                    base_path('app'), 
                 ],
             ],
         ],

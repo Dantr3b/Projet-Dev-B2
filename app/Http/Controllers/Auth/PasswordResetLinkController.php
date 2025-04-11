@@ -10,6 +10,36 @@ use Illuminate\View\View;
 
 class PasswordResetLinkController extends Controller
 {
+
+/**
+ * @OA\Post(
+ *     path="/api/forgot-password",
+ *     summary="Demander un lien de réinitialisation de mot de passe",
+ *     tags={"Authentification"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email"},
+ *             @OA\Property(property="email", type="string", example="user@example.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lien de réinitialisation de mot de passe envoyé avec succès",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="Nous avons envoyé un lien de réinitialisation de mot de passe à votre adresse email.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Erreur lors de l'envoi du lien de réinitialisation",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Le lien de réinitialisation n'a pas pu être envoyé. Veuillez vérifier l'adresse email.")
+ *         )
+ *     )
+ * )
+ */
+
     /**
      * Display the password reset link request view.
      */

@@ -15,38 +15,28 @@
         }
     ],
     "paths": {
-        "/api/register": {
+        "/api/login": {
             "post": {
                 "tags": [
                     "Authentification"
                 ],
-                "summary": "Enregistrer un nouvel utilisateur",
-                "operationId": "387faf953d3be3b3fca835ccba13719f",
+                "summary": "Connexion utilisateur",
+                "operationId": "bc76a9d52929cab7a147ca7b5c527430",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "username",
                                     "email",
-                                    "password",
-                                    "password_confirmation"
+                                    "password"
                                 ],
                                 "properties": {
-                                    "username": {
-                                        "type": "string",
-                                        "example": "JohnDoe"
-                                    },
                                     "email": {
                                         "type": "string",
-                                        "example": "test@email.com"
+                                        "example": "test@example.com"
                                     },
                                     "password": {
-                                        "type": "string",
-                                        "example": "password123"
-                                    },
-                                    "password_confirmation": {
                                         "type": "string",
                                         "example": "password123"
                                     }
@@ -57,11 +47,32 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Utilisateur enregistré avec succès"
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Connexion réussie"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "token123"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
-                    "422": {
-                        "description": "Erreur de validation"
+                    "401": {
+                        "description": "Identifiants invalides"
                     }
                 }
             }
@@ -168,6 +179,57 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Enregistrer un nouvel utilisateur",
+                "operationId": "18235ea6963e661c49bf381065779d6a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "JohnDoe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur enregistré avec succès"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
             }
         }
     },

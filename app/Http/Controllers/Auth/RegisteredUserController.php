@@ -14,6 +14,28 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+
+
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Enregistrer un nouvel utilisateur",
+     *     tags={"Authentification"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"username","email","password","password_confirmation"},
+     *             @OA\Property(property="username", type="string", example="JohnDoe"),
+     *             @OA\Property(property="email", type="string", example="test@email.com"),
+     *             @OA\Property(property="password", type="string", example="password123"),
+     *             @OA\Property(property="password_confirmation", type="string", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Utilisateur enregistré avec succès"),
+     *     @OA\Response(response=422, description="Erreur de validation")
+     * )
+     */
+    
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
