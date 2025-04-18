@@ -443,6 +443,459 @@
                     }
                 }
             }
+        },
+        "/api/reviews/{productId}": {
+            "get": {
+                "tags": [
+                    "Avis"
+                ],
+                "summary": "Obtenir les avis pour un produit",
+                "operationId": "e61768fa9ee40089001977c2e4425a5d",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des avis pour le produit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Review"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produit non trouvé"
+                    }
+                }
+            }
+        },
+        "/api/reviews": {
+            "post": {
+                "tags": [
+                    "Avis"
+                ],
+                "summary": "Ajouter un avis",
+                "operationId": "154c71f5f72b459d998f5ea451bd4c96",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "user_id",
+                                    "rating"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "rating": {
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "Très bon produit !"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Avis ajouté avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Review"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/api/reviews/{reviewId}": {
+            "get": {
+                "tags": [
+                    "Avis"
+                ],
+                "summary": "Obtenir un avis spécifique",
+                "operationId": "f59604e99d7498658498954319f02c15",
+                "parameters": [
+                    {
+                        "name": "reviewId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de l'avis",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Review"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Avis non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Avis"
+                ],
+                "summary": "Mettre à jour un avis",
+                "operationId": "58153cb09a4a086f8ec134b5a655a33d",
+                "parameters": [
+                    {
+                        "name": "reviewId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "rating"
+                                ],
+                                "properties": {
+                                    "rating": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "Produit excellent !"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Avis mis à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Review"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Avis non trouvé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Avis"
+                ],
+                "summary": "Supprimer un avis",
+                "operationId": "5a0c8d0b56a4fe90f9d00f1e10090b87",
+                "parameters": [
+                    {
+                        "name": "reviewId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Avis supprimé"
+                    },
+                    "404": {
+                        "description": "Avis non trouvé"
+                    }
+                }
+            }
+        },
+        "/api/cart/{userId}": {
+            "get": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Obtenir le panier de l'utilisateur",
+                "operationId": "12b143fbc6e6df9a959d8771f31ec69f",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des articles du panier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CartItem"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Panier non trouvé"
+                    }
+                }
+            }
+        },
+        "/addproduct": {
+            "post": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Ajouter un produit au panier",
+                "description": "This endpoint allows the user to add a new product to the inventory.",
+                "operationId": "addProduct",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "product_id": {
+                                        "description": "id du produit",
+                                        "type": "integer"
+                                    },
+                                    "quantity": {
+                                        "description": "Quantité du produit à ajouter",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product added successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product added successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid input data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while adding the product"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/{cartId}/item/{cartItemId}": {
+            "put": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Mettre à jour la quantité d'un produit dans le panier",
+                "operationId": "d8155c00bec5ecf8355604389993b1bb",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "cartItemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "quantity": {
+                                        "description": "Nouvelle quantité du produit",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Quantité mise à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Quantité mise à jour"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Panier ou article non trouvé"
+                    },
+                    "422": {
+                        "description": "Données invalides"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Supprimer un produit du panier",
+                "operationId": "759894ed0d4c49f3274624900dcd0811",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "cartItemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produit supprimé du panier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Produit supprimé du panier"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Panier ou article non trouvé"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -515,6 +968,77 @@
                     }
                 },
                 "type": "object"
+            },
+            "Review": {
+                "required": [
+                    "product_id",
+                    "user_id",
+                    "rating"
+                ],
+                "properties": {
+                    "review_id": {
+                        "description": "ID de l'avis",
+                        "type": "integer"
+                    },
+                    "product_id": {
+                        "description": "ID du produit concerné",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "description": "ID de l'utilisateur qui a posté l'avis",
+                        "type": "integer"
+                    },
+                    "rating": {
+                        "description": "Note attribuée au produit",
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "description": "Commentaire sur le produit",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CartItem": {
+                "required": [
+                    "id",
+                    "cart_id",
+                    "product_id",
+                    "quantity"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID de l'article du panier",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "cart_id": {
+                        "description": "ID du panier associé",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "product_id": {
+                        "description": "ID du produit",
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "quantity": {
+                        "description": "Quantité du produit dans le panier",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-04-18T12:34:56Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-04-18T12:34:56Z"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -526,6 +1050,14 @@
         {
             "name": "Produits",
             "description": "Produits"
+        },
+        {
+            "name": "Avis",
+            "description": "Avis"
+        },
+        {
+            "name": "Panier",
+            "description": "Panier"
         }
     ]
 }
