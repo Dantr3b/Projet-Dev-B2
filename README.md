@@ -3,29 +3,29 @@
 ## Description
 
 **Projet Dev B2** est une API RESTful développée avec [Laravel](https://laravel.com/).  
-Elle permet la gestion des utilisateurs, des produits, des commandes, des paniers, des wishlists, des avis, etc.  
-La documentation interactive de l’API est disponible via Swagger UI.
+Elle gère l’authentification, les utilisateurs, les produits, les paniers, les wishlists, les commandes, les avis, et propose une documentation interactive via Swagger.
 
 ---
 
 ## Fonctionnalités principales
 
-- **Authentification & Utilisateurs** : Inscription, connexion, gestion de profil, sécurité avec Sanctum.
-- **Gestion des Produits** : CRUD complet sur les produits.
+- **Authentification & Utilisateurs** : Inscription, connexion, gestion de profil (Sanctum).
+- **Gestion des Produits** : CRUD complet.
 - **Panier & Wishlist** : Ajout, modification, suppression d’articles.
-- **Commandes** : Création, consultation, mise à jour, suppression de commandes.
+- **Commandes** : Création, consultation, paiement (Stripe test), suivi.
 - **Avis** : Ajout et consultation d’avis sur les produits.
-- **Documentation API** : Générée automatiquement avec Swagger UI.
-- **Validation & Gestion des Erreurs** : Validation des entrées et gestion des erreurs HTTP.
+- **Documentation API** : Swagger UI générée automatiquement.
+- **Validation & Gestion des erreurs** : Validation des entrées et gestion des erreurs HTTP.
 
 ---
 
 ## Prérequis
 
-- PHP >= 7.4
+- PHP >= 8.2
 - Composer
 - MySQL ou autre SGBD compatible Laravel
-- Node.js (pour les assets frontend, optionnel)
+- Node.js (pour le frontend ou les assets)
+- [Stripe](https://stripe.com/) (pour le paiement test)
 
 ---
 
@@ -45,7 +45,7 @@ La documentation interactive de l’API est disponible via Swagger UI.
 3. **Configurer l’environnement**
    ```bash
    cp .env.example .env
-   # Modifier .env selon vos paramètres (DB, mail, etc.)
+   # Modifier .env selon vos paramètres (DB, mail, Stripe, etc.)
    ```
 
 4. **Générer la clé d’application**
@@ -82,7 +82,7 @@ La documentation interactive de l’API est disponible via Swagger UI.
 
 ## Documentation Swagger
 
-La documentation interactive de l’API est accessible à l’adresse suivante :
+La documentation interactive de l’API est accessible à :
 
 ```
 http://localhost:8000/api/documentation
@@ -95,9 +95,23 @@ php artisan l5-swagger:generate
 
 ---
 
+## Paiement fictif (Stripe)
+
+- Utilise la carte de test Stripe : `4242 4242 4242 4242`
+- Date d’expiration : n’importe quelle date future (ex: 12/34)
+- CVC : n’importe quel code à 3 chiffres
+
+Configure tes clés Stripe dans `.env` :
+```
+STRIPE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxx
+STRIPE_SECRET=sk_test_xxxxxxxxxxxxxxxxxxxxx
+```
+
+---
+
 ## Sécurité
 
-L’API utilise [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum) pour l’authentification par token.  
+L’API utilise [Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) pour l’authentification par token.  
 Inclure le token Bearer dans les headers pour accéder aux routes protégées.
 
 ---
@@ -115,7 +129,7 @@ php artisan test
 
 - `app/Http/Controllers` : Contrôleurs de l’API
 - `app/Models` : Modèles Eloquent
-- `app/Swagger` : Fichiers de schémas Swagger (OpenAPI)
+- `app/Swagger` : Schémas Swagger (OpenAPI)
 - `routes/api.php` : Définition des routes API
 - `config/l5-swagger.php` : Configuration Swagger
 
