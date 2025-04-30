@@ -2,105 +2,125 @@
 
 ## Description
 
-**Projet Dev B2** est une API RESTful développée avec **Laravel**. L'API permet la gestion des utilisateurs, l'authentification, et comprend une interface **Swagger UI** pour la documentation interactive.
+**Projet Dev B2** est une API RESTful développée avec [Laravel](https://laravel.com/).  
+Elle permet la gestion des utilisateurs, des produits, des commandes, des paniers, des wishlists, des avis, etc.  
+La documentation interactive de l’API est disponible via Swagger UI.
 
-### Fonctionnalités principales :
+---
 
-- Authentification & Utilisateurs : Inscription, connexion, déconnexion, vérification d'email, confirmation de mot de passe.
+## Fonctionnalités principales
 
-- Gestion des Produits : Création, lecture, mise à jour, suppression de produits.
-
-- Sécurité : Accès sécurisé avec tokens (Sanctum).
-
-- Documentation API : Générée automatiquement avec Swagger UI.
-
-- Validation & Gestion des Erreurs : Validation des entrées et gestion des erreurs HTTP.
+- **Authentification & Utilisateurs** : Inscription, connexion, gestion de profil, sécurité avec Sanctum.
+- **Gestion des Produits** : CRUD complet sur les produits.
+- **Panier & Wishlist** : Ajout, modification, suppression d’articles.
+- **Commandes** : Création, consultation, mise à jour, suppression de commandes.
+- **Avis** : Ajout et consultation d’avis sur les produits.
+- **Documentation API** : Générée automatiquement avec Swagger UI.
+- **Validation & Gestion des Erreurs** : Validation des entrées et gestion des erreurs HTTP.
 
 ---
 
 ## Prérequis
 
-Avant de commencer, assurez-vous d'avoir installé :
-
-- PHP (>= 7.4)
+- PHP >= 7.4
 - Composer
-- MySQL (ou une autre base de données compatible Laravel)
-- Node.js (si vous avez besoin d'installer les dépendances frontend)
+- MySQL ou autre SGBD compatible Laravel
+- Node.js (pour les assets frontend, optionnel)
 
 ---
 
 ## Installation
 
-1. **Clonez le projet**
-
+1. **Cloner le projet**
    ```bash
    git clone https://github.com/Dantr3b/Projet-Dev-B2.git
    cd Projet-Dev-B2
    ```
 
-2. Installez les dépendances avec Composer
+2. **Installer les dépendances backend**
+   ```bash
+   composer install
+   ```
 
-```bash
-composer install
-```
+3. **Configurer l’environnement**
+   ```bash
+   cp .env.example .env
+   # Modifier .env selon vos paramètres (DB, mail, etc.)
+   ```
 
-3. Configurez votre environnement
+4. **Générer la clé d’application**
+   ```bash
+   php artisan key:generate
+   ```
 
-Dupliquez le fichier .env.example et modifiez-le selon vos paramètres :
+5. **Exécuter les migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-```bash
-cp .env.example .env
-```
-4. Générez la clé d'application
-
-```bash
-php artisan key:generate
-```
-
-5. Exécutez les migrations de la base de données
-
-```bash
-php artisan migrate
-```
-6. Installez les dépendances front-end (optionnel)
-
-```bash
-npm install
-npm run dev
-```
+6. **Installer les dépendances frontend (optionnel)**
+   ```bash
+   npm install
+   npm run dev
+   ```
 
 ---
 
 ## Démarrage du projet
-1. Démarrez le serveur local avec la commande suivante :
 
-```bash
-php artisan serve
-```
+1. **Lancer le serveur local**
+   ```bash
+   php artisan serve
+   ```
 
-2. Ouvrez votre navigateur et accédez à l'URL suivante :
-
-```bash
-http://localhost:8000
-```
+2. **Accéder à l’application**
+   ```
+   http://localhost:8000
+   ```
 
 ---
 
+## Documentation Swagger
 
-## Accéder à la documentation Swagger UI
+La documentation interactive de l’API est accessible à l’adresse suivante :
 
-La documentation interactive de l'API est accessible via Swagger UI :
-
-```bash
+```
 http://localhost:8000/api/documentation
+```
+
+Pour régénérer la documentation Swagger après modification des annotations :
+```bash
+php artisan l5-swagger:generate
 ```
 
 ---
 
 ## Sécurité
-Cette API utilise Sanctum pour l'authentification basée sur les tokens. Les utilisateurs doivent inclure leur token Bearer dans les headers pour accéder aux routes protégées.
+
+L’API utilise [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum) pour l’authentification par token.  
+Inclure le token Bearer dans les headers pour accéder aux routes protégées.
+
+---
+
+## Tests
+
+Pour lancer les tests automatisés :
+```bash
+php artisan test
+```
+
+---
+
+## Structure du projet
+
+- `app/Http/Controllers` : Contrôleurs de l’API
+- `app/Models` : Modèles Eloquent
+- `app/Swagger` : Fichiers de schémas Swagger (OpenAPI)
+- `routes/api.php` : Définition des routes API
+- `config/l5-swagger.php` : Configuration Swagger
 
 ---
 
 ## License
-Distribué sous la licence MIT.
+
+Distribué sous licence MIT.
