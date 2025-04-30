@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipping extends Model
 {
+    public $timestamps = false;
+    protected $table = 'shipping';
     use HasFactory;
 
     protected $fillable = [

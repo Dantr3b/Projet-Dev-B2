@@ -97,7 +97,9 @@ class OrderController extends Controller
             'order_date' => 'required|date',
             'status' => 'required|string',
             'total_amount' => 'required|numeric',
-            'order_items' => 'required|array',
+            'order_items' => 'required|array|min:1',
+            'order_items.*.product_id' => 'required|integer|exists:products,product_id',
+            'order_items.*.quantity' => 'required|integer|min:1',
             'shipping_address' => 'required|string',
             'shipping_date' => 'required|date',
             'tracking_number' => 'nullable|string',
@@ -106,16 +108,17 @@ class OrderController extends Controller
         $order = Order::create($validated);
 
         foreach ($request->order_items as $item) {
+            $product = \App\Models\Product::findOrFail($item['product_id']);
             OrderItem::create([
-                'order_id' => $order->id,
+                'order_id' => $order->order_id,
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
-                'price' => $item['price']
+                'price' => $product->price
             ]);
         }
 
         Shipping::create([
-            'order_id' => $order->id,
+            'order_id' => $order->order_id,
             'shipping_address' => $request->shipping_address,
             'shipping_date' => $request->shipping_date,
             'tracking_number' => $request->tracking_number,

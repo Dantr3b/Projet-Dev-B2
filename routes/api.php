@@ -7,6 +7,7 @@ use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /**
  * @OA\PathItem(
@@ -30,11 +31,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 // Routes pour le CRUD des produits
 Route::apiResource('products', ProductController::class);
 
+Route::post('/orders/{orderId}/pay', [PaymentController::class, 'pay'])->middleware('auth:sanctum');
 
 
 
 
-Route::middleware('auth:sanctum')->group(function () {
+
+// Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cart/{userId}', [ShoppingCartController::class, 'showCart']);
     Route::post('/cart/{cartId}/add', [ShoppingCartController::class, 'addProduct']);
     Route::delete('/cart/{cartId}/remove/{cartItemId}', [ShoppingCartController::class, 'removeProduct']);
@@ -52,4 +55,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/orders', [OrderController::class, 'store']);
     Route::put('/orders/{orderId}', [OrderController::class, 'update']);
     Route::delete('/orders/{orderId}', [OrderController::class, 'destroy']);
-});
+// });

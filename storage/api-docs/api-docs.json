@@ -426,6 +426,49 @@
                 }
             }
         },
+        "/api/orders/{orderId}/pay": {
+            "post": {
+                "tags": [
+                    "Paiement"
+                ],
+                "summary": "Effectuer un paiement Stripe fictif",
+                "operationId": "cbdd34953600a07bd222f426cd9a8351",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client secret Stripe pour le paiement",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client_secret": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Paiement Stripe fictif initialisé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Commande non trouvée"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [
@@ -1545,6 +1588,10 @@
         {
             "name": "Commandes",
             "description": "Commandes"
+        },
+        {
+            "name": "Paiement",
+            "description": "Paiement"
         },
         {
             "name": "Produits",
